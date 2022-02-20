@@ -6,7 +6,5 @@ import com.example.imagegallery.domain.repository.datasource.ImagesDataSource
 import retrofit2.Response
 
 class ImagesDataSourceImpl(val apiService: ImageService) : ImagesDataSource {
-    override suspend fun getPhotos(page: Int): Response<ImagesList> {
-        return apiService.getPhotos(page)
-    }
+    override suspend fun getPhotos(page: Int) = apiService.getPhotos(page)
 }
