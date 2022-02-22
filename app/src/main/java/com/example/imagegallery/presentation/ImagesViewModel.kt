@@ -5,6 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.bumptech.glide.load.HttpException
 import com.example.imagegallery.R
 import com.example.imagegallery.data.model.ImagesList
@@ -16,6 +18,7 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.net.SocketTimeoutException
 import java.util.concurrent.TimeoutException
@@ -25,21 +28,19 @@ import javax.inject.Inject
 class ImagesViewModel @Inject constructor(
     private val imagesUseCase: GetImagesUseCase
 ) : ViewModel() {
-    private val _getimagesResponse: MutableLiveData<Resource<ImagesList>> = MutableLiveData()
-    val imagesResponse: LiveData<Resource<ImagesList>>
+    private val _getimagesResponse: MutableLiveData<Resource<PagingData<ImagesList.ImagesListItem>>> = MutableLiveData()
+    val imagesResponse: LiveData<Resource<PagingData<ImagesList.ImagesListItem>>>
         get() = _getimagesResponse
 
 
-    fun getMovies(page: Int) {
+    fun getMovies() {
         viewModelScope.launch(Dispatchers.IO) {
             _getimagesResponse.postValue(Resource.Loading())
 
             try {
-                val response = imagesUseCase.execute(page)
-                if (response?.isSuccessful) {
-                    _getimagesResponse.postValue(Resource.Success(response?.body()))
-                } else {
-                    _getimagesResponse.postValue(Resource.Error(response?.message()))
+                val response = imagesUseCase.execute().cachedIn(viewModelScope)
+                response.collect {
+                    _getimagesResponse.postValue(Resource.Success(it))
                 }
             } catch (e: Exception) {
                 _getimagesResponse.postValue(Resource.Error(e.localizedMessage))

@@ -1,8 +1,8 @@
 package com.example.imagegallery.di
 
 import com.example.imagegallery.data.api.ImageService
-import com.example.imagegallery.domain.repository.datasource.ImagesDataSource
-import com.example.imagegallery.domain.repository.datasourceimpl.ImagesDataSourceImpl
+import com.example.imagegallery.data.datasource.ImagesDataSource
+import com.example.imagegallery.data.datasourceimpl.ImagesDataSourceImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

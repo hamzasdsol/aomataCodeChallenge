@@ -36,6 +36,9 @@ android {
     dataBinding {
         enabled = true
     }
+    viewBinding{
+        enabled=true
+    }
 }
 
 dependencies {
@@ -94,5 +97,8 @@ dependencies {
 
     implementation "androidx.activity:activity-ktx:1.4.0"
 
+    // Paging 3.0
+    def paging_version = "3.1.0"
 
+    implementation("androidx.paging:paging-runtime:$paging_version")
 }

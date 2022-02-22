@@ -1,8 +1,10 @@
 package com.example.imagegallery.presentation
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imagegallery.R
@@ -10,12 +12,22 @@ import com.example.imagegallery.data.model.ImagesList
 import com.example.imagegallery.databinding.ImagesListItemBinding
 import com.example.imagegallery.util.DiffUtilCallBack
 
-class ImagesAdapter(private val callback: (Int?) -> Unit) :
-    RecyclerView.Adapter<ImagesAdapter.ViewHolder>() {
-    var imagesList: List<ImagesList.ImagesListItem> = mutableListOf()
+class ImagesAdapter : PagingDataAdapter<ImagesList.ImagesListItem, ImagesAdapter.ViewHolder>(DataDifferntiator) {
 
     class ViewHolder(val binding: ImagesListItemBinding) : RecyclerView.ViewHolder(binding.root) {
     }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val dataItem = getItem(position)
+        holder.binding.apply {
+            result = dataItem
+            this.root.setOnClickListener {
+                // callback.invoke(dataItem.id)
+            }
+        }
+
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -26,24 +38,15 @@ class ImagesAdapter(private val callback: (Int?) -> Unit) :
         )
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val dataItem = imagesList[position]
-        holder.binding.apply {
-            result = dataItem
-            this.root.setOnClickListener {
-                // callback.invoke(dataItem.id)
-            }
+    object DataDifferntiator : DiffUtil.ItemCallback<ImagesList.ImagesListItem>() {
+
+        override fun areItemsTheSame(oldItem: ImagesList.ImagesListItem, newItem: ImagesList.ImagesListItem): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: ImagesList.ImagesListItem, newItem: ImagesList.ImagesListItem): Boolean {
+            return oldItem == newItem
         }
     }
 
-    override fun getItemCount(): Int {
-        return imagesList.size
-    }
-
-    fun updateData(data: List<ImagesList.ImagesListItem>) {
-        val diffCallback = DiffUtilCallBack(this.imagesList, data)
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
-        diffResult.dispatchUpdatesTo(this)
-        this.imagesList = data
-    }
 }

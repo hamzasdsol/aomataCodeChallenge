@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Ibrahim/Desktop/AomataCodeChallange/aomataCodeChallenge/app/src/main/res/layout/activity_main.xml" value="0.17" />
+        <entry key="..\:/Users/Ibrahim/Desktop/AomataCodeChallange/aomataCodeChallenge/app/src/main/res/drawable/bg_rounded_rect.xml" value="0.156" />
+        <entry key="..\:/Users/Ibrahim/Desktop/AomataCodeChallange/aomataCodeChallenge/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/Ibrahim/Desktop/AomataCodeChallange/aomataCodeChallenge/app/src/main/res/layout/images_list_item.xml" value="0.18333333333333332" />
+        <entry key="..\:/Users/Ibrahim/Desktop/AomataCodeChallange/aomataCodeChallenge/app/src/main/res/layout/layout_paging_footer.xml" value="0.25" />
         <entry key="..\:/Users/Ibrahim/Desktop/AomataCodeChallange/aomataCodeChallenge/app/src/main/res/layout/toolbar.xml" value="0.18333333333333332" />
       </map>
     </option>
