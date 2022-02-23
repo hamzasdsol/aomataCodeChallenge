@@ -2,6 +2,8 @@ package com.example.imagegallery.presentation
 
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Parcelable
+import android.os.PersistableBundle
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -21,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.imagegallery.R
 import com.example.imagegallery.data.model.ImagesList
 import com.example.imagegallery.databinding.ActivityMainBinding
+import com.example.imagegallery.util.Constants
 import com.example.imagegallery.util.Resource
 import com.example.imagegallery.util.showToast
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,6 +37,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var imagesAdapter: ImagesAdapter
     private var imagesList: MutableList<ImagesList.ImagesListItem> = mutableListOf()
     var spanList = mutableListOf<String>("Select number of colums", "1", "2", "3", "4", "5")
+     var state: Parcelable?=null
 
     companion object {
         const val ANGRY = "\uD83D\uDE28 "
@@ -65,7 +69,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpAdapter() {
         imagesAdapter = ImagesAdapter()
-        binding.rvMovies.apply {
+        binding.rvImages.apply {
             setHasFixedSize(true)
             val footerAdapter = CustomLoadStateAdapter {
                 imagesAdapter.retry()
@@ -84,6 +88,9 @@ class MainActivity : AppCompatActivity() {
                         1
                     }
                 }
+            }
+            if(state!=null){
+              binding.rvImages.layoutManager?.onRestoreInstanceState(state)
             }
         }
 
@@ -143,8 +150,8 @@ class MainActivity : AppCompatActivity() {
         binding.spnSpanCount.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                    if(p2>0)
-                    changeSpanCount(spanList[p2].toInt())
+                    if (p2 > 0)
+                        changeSpanCount(spanList[p2].toInt())
                 }
 
                 override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -160,8 +167,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun changeSpanCount(spans: Int) {
-        val layoutManager = binding.rvMovies.layoutManager as GridLayoutManager
+        val layoutManager = binding.rvImages.layoutManager as GridLayoutManager
         layoutManager?.spanCount = spans
         layoutManager.requestLayout()
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        if (savedInstanceState != null) {
+            state = savedInstanceState.getParcelable(Constants.LIST_POSITION)
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+        super.onSaveInstanceState(outState, outPersistentState)
+        outState.putParcelable(
+            Constants.LIST_POSITION,
+            binding.rvImages.layoutManager?.onSaveInstanceState()
+        )
     }
 }
