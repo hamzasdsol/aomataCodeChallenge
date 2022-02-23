@@ -17,6 +17,7 @@ This assessment is taken by Aomata
 - Code refactoring
 - Code tuning
 - UI to be revised
+- Write unit tests
 
 ![alt text](https://github.com/hamzasdsol/aomataCodeChallenge/blob/main/Screenshots/Screenshot_20220223-202115_ImageGallery.jpg?raw=true)
 
