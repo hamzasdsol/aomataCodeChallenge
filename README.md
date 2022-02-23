@@ -11,7 +11,6 @@ This assessment is taken by Aomata
 - Data Binding
 - Flow
 
-
 ## Improvements
 - Integrate Room to make user experience more better
 - Code refactoring
