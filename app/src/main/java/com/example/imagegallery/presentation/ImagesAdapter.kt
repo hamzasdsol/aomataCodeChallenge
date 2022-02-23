@@ -12,7 +12,7 @@ import com.example.imagegallery.data.model.ImagesList
 import com.example.imagegallery.databinding.ImagesListItemBinding
 import com.example.imagegallery.util.DiffUtilCallBack
 
-class ImagesAdapter : PagingDataAdapter<ImagesList.ImagesListItem, ImagesAdapter.ViewHolder>(DataDifferntiator) {
+class ImagesAdapter(val clickCallBack: (ImagesList.ImagesListItem) -> Unit,) : PagingDataAdapter<ImagesList.ImagesListItem, ImagesAdapter.ViewHolder>(DataDifferntiator) {
 
     class ViewHolder(val binding: ImagesListItemBinding) : RecyclerView.ViewHolder(binding.root) {
     }
@@ -22,7 +22,7 @@ class ImagesAdapter : PagingDataAdapter<ImagesList.ImagesListItem, ImagesAdapter
         holder.binding.apply {
             result = dataItem
             this.root.setOnClickListener {
-                // callback.invoke(dataItem.id)
+                clickCallBack(dataItem!!)
             }
         }
 

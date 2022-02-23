@@ -1,5 +1,6 @@
 package com.example.imagegallery.presentation
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Parcelable
@@ -24,6 +25,7 @@ import com.example.imagegallery.R
 import com.example.imagegallery.data.model.ImagesList
 import com.example.imagegallery.databinding.ActivityMainBinding
 import com.example.imagegallery.util.Constants
+import com.example.imagegallery.util.Constants.IMAGE_URL
 import com.example.imagegallery.util.Resource
 import com.example.imagegallery.util.showToast
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,7 +39,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var imagesAdapter: ImagesAdapter
     private var imagesList: MutableList<ImagesList.ImagesListItem> = mutableListOf()
     var spanList = mutableListOf<String>("Select number of colums", "1", "2", "3", "4", "5")
-     var state: Parcelable?=null
+    var state: Parcelable? = null
 
     companion object {
         const val ANGRY = "\uD83D\uDE28 "
@@ -66,9 +68,19 @@ class MainActivity : AppCompatActivity() {
         viewModel.getMovies()
     }
 
+    private fun gotoDetailActivity(fullImagePath: String) {
+        startActivity(
+            Intent(this, ImageDetailActivity::class.java).putExtra(
+                IMAGE_URL,
+                fullImagePath
+            )
+        )
+    }
 
     private fun setUpAdapter() {
-        imagesAdapter = ImagesAdapter()
+        imagesAdapter = ImagesAdapter() { data ->
+            gotoDetailActivity(data.urls?.full!!)
+        }
         binding.rvImages.apply {
             setHasFixedSize(true)
             val footerAdapter = CustomLoadStateAdapter {
@@ -89,8 +101,8 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
-            if(state!=null){
-              binding.rvImages.layoutManager?.onRestoreInstanceState(state)
+            if (state != null) {
+                binding.rvImages.layoutManager?.onRestoreInstanceState(state)
             }
         }
 
@@ -123,8 +135,7 @@ class MainActivity : AppCompatActivity() {
         ) {
 
             override fun isEnabled(position: Int): Boolean {
-                // Disable the first item from Spinner
-                // First item will be used for hint
+
                 return position != 0
             }
 
@@ -135,11 +146,9 @@ class MainActivity : AppCompatActivity() {
             ): View {
                 val view: TextView =
                     super.getDropDownView(position, convertView, parent) as TextView
-                //set the color of first item in the drop down list to gray
                 if (position == 0) {
                     view.setTextColor(Color.GRAY)
                 } else {
-                    //here it is possible to define color for other items by
                     view.setTextColor(Color.BLACK);
                 }
                 return view

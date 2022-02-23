@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.bumptech.glide.load.HttpException
 import com.example.imagegallery.R
 import com.example.imagegallery.data.model.ImagesList
 import com.example.imagegallery.domain.usecase.GetImagesUseCase
