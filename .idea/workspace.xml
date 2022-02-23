@@ -13,8 +13,9 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3dc7dadc-305e-40cb-b60e-024f5d1a6722" name="Default Changelist" comment="Update(toolbar color changed)">
+    <list default="true" id="3dc7dadc-305e-40cb-b60e-024f5d1a6722" name="Default Changelist" comment="Update(added images and apk)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,7 +181,14 @@
       <option name="project" value="LOCAL" />
       <updated>1645629256211</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Update(added images and apk)">
+      <created>1645630024483</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1645630024483</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -200,6 +208,7 @@
     <MESSAGE value="Update(api integration done, and set span count)" />
     <MESSAGE value="Update(paging 3 integrated with some code refactoring remaining)" />
     <MESSAGE value="Update(toolbar color changed)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update(toolbar color changed)" />
+    <MESSAGE value="Update(added images and apk)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update(added images and apk)" />
   </component>
 </project>
